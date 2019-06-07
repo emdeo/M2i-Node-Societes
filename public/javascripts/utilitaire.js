@@ -1,26 +1,7 @@
-function AfficheListeDesEmployes(lstEmployes) {
-	$("#tblEmployesBody").empty(); // Supprime tous les elements enfants de tblEmployesBody
-
-
-	for (i = 0; i < lstEmployes.length; i++) {
-		let ligne = $("<tr></tr>");
-		ligne.append($("<td></td>").text(lstEmployes[i].ID_Personne));
-		ligne.append($("<td></td>").text(lstEmployes[i].Nom));
-		ligne.append($("<td></td>").text(lstEmployes[i].Prenom));
-		ligne.append($("<td></td>").text(lstEmployes[i].Poids));
-
-		ligne.append($("<td></td>").text(lstEmployes[i].Taille));
-		ligne.append($("<td></td>").text(lstEmployes[i].Sexe));
-		ligne.append($("<td></td>").text(lstEmployes[i].ID_SOCIETE));
-
-
-		$("#tblEmployesBody").append(ligne);
-	}
-
-	$("#tblEmployes").show();
-}
 
 function AfficheListeDesSocietes(lstSocietes) {
+
+	alert("AfficheListeDesSocietes - début")
 
 	$("#tblSocietesBody").empty(); // Supprime tous les elements enfants de tblSocietesBody	  
 
@@ -49,7 +30,7 @@ function AfficheListeDesSocietes(lstSocietes) {
 	$("#frmNouveau")[0].reset(); //Réinitialiser le formulaire 
 	$("#collapseNouveau").collapse('hide'); // Fermer le collapse
 
-
+	alert("AfficheListeDesSocietes - fin")
 }
 
 
@@ -62,8 +43,28 @@ function AfficheSociete(societe) {
 	ligneSociete.append($("<td></td>").append($("<input></input>").addClass('form-control').attr("type", "text").attr("id", 'txtActiviteUpdate').val(societe._Activite)));
 	ligneSociete.append($("<td></td>").append($("<input></input>").addClass('form-control').attr("type", "text").attr("id", 'txtCAUpdate').val(societe._CA)));
 
-
 	$("#tblSocietesUpdateBody").append(ligneSociete);
+}
+
+function AfficheListeDesEmployes(lstEmployes) {
+	$("#tblEmployesBody").empty(); // Supprime tous les elements enfants de tblEmployesBody
+
+	for (i = 0; i < lstEmployes.length; i++) {
+		let ligne = $("<tr></tr>");
+		ligne.append($("<td></td>").text(lstEmployes[i].ID_Personne));
+		ligne.append($("<td></td>").text(lstEmployes[i].Nom));
+		ligne.append($("<td></td>").text(lstEmployes[i].Prenom));
+		ligne.append($("<td></td>").text(lstEmployes[i].Poids));
+
+		ligne.append($("<td></td>").text(lstEmployes[i].Taille));
+		ligne.append($("<td></td>").text(lstEmployes[i].Sexe));
+		ligne.append($("<td></td>").text(lstEmployes[i].ID_SOCIETE));
+
+
+		$("#tblEmployesBody").append(ligne);
+	}
+
+	$("#tblEmployes").show();
 }
 
 
@@ -90,12 +91,6 @@ function AffichePersonnePourUpdate(personnes) {
 	}
 
 	$("#UpdateSocieteModal").modal('show');
-
-
-
-
-
-
 }
 
 

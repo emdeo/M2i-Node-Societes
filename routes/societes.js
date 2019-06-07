@@ -16,33 +16,12 @@ app.use(bodyParser.urlencoded({   // to support URL-encoded bodies
 	extended: true
 }));
 
-// Remplir la table 'societe' dans la BDD
-// var lstSocietes = [{ "ID_Societe": 1, "Nom": "Alcibiad", "CA": 45, "Activite": "ENERGIE", "Employe": 2 },
-// 	{ "ID_Societe": 2, "Nom": "Barthom", "CA": 789.5, "Activite": "COMMERCE", "Employe": 2 },
-// 	{ "ID_Societe": 3, "Nom": "Calipyge", "CA": 24, "Activite": "NUMERIQUE", "Employe": 2 },
-// 	{ "ID_Societe": 4, "Nom": "Durotron", "CA": 666, "Activite": "SCIENCES", "Employe": 1 }]
-// InitialiseTable(lstSocietes)
-
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-
 
 	console.log('params: ' + JSON.stringify(req.params));
 	console.log('body: ' + JSON.stringify(req.body));
 	console.log('query: ' + JSON.stringify(req.query));
-
-
-	// Récupération de la liste des sociétés 
-	// connection.query(
-	// 	"SELECT * FROM  societe",
-	// 	function (err, results, fields) {
-
-	// 		for (ligne of results) // results contains rows returned by server 	  
-	// 		{
-	// 			console.log(ligne.Nom)
-	// 		}
-	// 	}
-	// );
 
 	ListeDesSocietes(function (retour) {
 		let jsonRetour = JSON.stringify(retour);
@@ -66,6 +45,16 @@ router.post('/', function (req, res, next) {
 
 	// console.log("Fin traitement")
 
+	
+	// Remplir la table 'societe' dans la BDD
+	var lstSocietes = [{ "ID_Societe": 11, "Nom": "Alcibiad", "CA": 45, "Activite": "ENERGIE", "Employe": 2 },
+	{ "ID_Societe": 12, "Nom": "Barthom", "CA": 789.5, "Activite": "COMMERCE", "Employe": 2 },
+	{ "ID_Societe": 13, "Nom": "Calipyge", "CA": 24, "Activite": "NUMERIQUE", "Employe": 2 },
+	{ "ID_Societe": 14, "Nom": "Durotron", "CA": 666, "Activite": "SCIENCES", "Employe": 1 }]
+
+	// // Remplit la table 'societe' avec des valeurs prédéfinies
+	// InitialiseTable(lstSocietes)
+	
 	CreeSociete(societe).then(ListeDesSocietes((retour) => {
 		res.send(JSON.stringify(retour));
 	}));
@@ -93,23 +82,21 @@ router.delete('/', function (req, res, next) {
 });
 
 function ListeDesSocietes(success) {
-	console.log("Liste des societes debut ")
+	console.log("Liste des sociétés - début ")
 	connection.query(
 		"SELECT * FROM  societe",
 		function (err, results, fields) {
 			if (err) {
-				console.log("erreur ");
+				console.log("Liste des sociétés - erreur");
 			}
 			else {
 				success(results);
-				console.log("Liste des societes success")
+				console.log("Liste des sociétés - succès :)")
 			}
 		});
 
-	console.log("Liste des societes fin ")
+	console.log("Liste des sociétés - fin ")
 }
-
-
 
 async function CreeSociete(societe) {
 	console.log("\nCréer société - début")
@@ -124,13 +111,27 @@ async function CreeSociete(societe) {
 }
 
 async function InitialiseTable(lstSocietes) {
-	console.log("\nInitialiser table 'sociétés' - début ")
+	console.log("\nInitialiser table 'societe' - début ")
+
+	// await connection.execute(
+	// 	"truncate Societe",
+	// 	function (err, results, fields) {
+	// 		console.log("\nVider la table 'societe' - succès ")
+	// 	});
+
+	var rqt_tbl = ""
+
+	lstSocietes.forEach(function (element) {
+		rqt_tbl += "(" + element.ID_Societe + "," + element.Nom + "," + element.Activite + "," + element.CA + "),"
+	})
+	console.log("InitialiseTable requête = " + rqt_tbl)
 	await connection.execute(
-		lstSocietes.forEach(function (element) {
-			CreeSociete(element)
-		})
-	)
-	console.log("Initialiser table 'sociétés' - fin ")
+		"Insert into Societe VALUES(?,?,?,?)" + rqt_tbl,
+		function (err, results, fields) {
+			console.log("InitialiseTable - succès")
+		});
+
+	console.log("Initialiser table 'societe' - fin ")
 }
 
 async function SupprimeSociete(idsociete) {
