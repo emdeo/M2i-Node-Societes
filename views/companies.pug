@@ -1,0 +1,109 @@
+doctype html
+head
+  // Required meta tags
+  meta(charset='utf-8')
+  meta(name='viewport', content='width=device-width, initial-scale=1')
+  link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css')
+  script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js')
+  script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js')
+  script(src='./javascripts/Utilitaire.js')
+  script(src='./javascripts/Sources2.js')
+  title Eleves d&apos;une classe
+.container
+  p
+  h1 GESTION DES SOCIETES
+  table#tblSocietes.table
+    thead
+      tr
+        th(scope='col') Selectionner
+        th(scope='col') ID_SOCIETE
+        th(scope='col') Nom
+        th(scope='col') Activite
+        th(scope='col') CA
+        th(scope='col') Modifier
+        th(scope='col') Supprimer
+    tbody#tblSocietesBody
+      for societe in societes
+        tr
+          td 
+            button.btn.btn-link.select(data-idsociete=societe.ID_Societe) Selectionner
+          td #{societe.ID_Societe}
+          td #{societe.Nom}
+          td #{societe.Activite}
+          td #{societe.CA}
+          td 
+            button.btn.btn-link.update(data-idsociete=societe.ID_Societe) Modifier
+          td 
+            button.btn.btn-link.delete(data-idsociete=societe.ID_Societe) Supprimer
+  p
+  p
+    button.btn.btn-primary.btn-block(type='button', data-toggle='collapse', data-target='#collapseNouveau', aria-expanded='false', aria-controls='collapseExample')
+      | Nouveau
+  #collapseNouveau.collapse
+    .card.card-body
+      form#frmNouveau
+        .form-group.row
+          label.col-sm-2.col-form-label(for='txtIDSociete') ID_SOCIETE
+          .col-sm-10
+            input#txtIDSociete.form-control(type='number')
+        .form-group.row
+          label.col-sm-2.col-form-label(for='txtNom') Nom
+          .col-sm-10
+            input#txtNom.form-control(type='text')
+        .form-group.row
+          label.col-sm-2.col-form-label(for='txtActivite') Activite
+          .col-sm-10
+            input#txtActivite.form-control(type='text')
+        .form-group.row
+          label.col-sm-2.col-form-label(for='txtCA') CA
+          .col-sm-10
+            input#txtCA.form-control(type='text')
+        .form-group.row.justify-content-center
+          .col-sm-4
+            input#cmdAjout.form-control.btn.btn-outline-primary(type='button', value='Ajouter')
+  table#tblEmployes.table
+    thead
+      tr
+        th(scope='col') ID_PERSONNE
+        th(scope='col') Nom
+        th(scope='col') Prenom
+        th(scope='col') Poids
+        th(scope='col') Taille
+        th(scope='col') Sexe
+        th(scope='col') ID_SOCIETE
+    tbody#tblEmployesBody
+  #UpdateSocieteModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalCenterTitle', aria-hidden='true')
+    .modal-dialog.modal-xl.modal-dialog-centered(role='document')
+      .modal-content
+        .modal-header
+          h5#exampleModalCenterTitle.modal-title GESTION DES EMPLOYES
+          button.close(type='button', data-dismiss='modal', aria-label='Close')
+            span(aria-hidden='true') &times;
+        .modal-body
+          form
+            table#tblSocietesUpdate.table
+              thead
+                tr
+                  th(scope='col') ID-SOCIETE
+                  th(scope='col') Nom
+                  th(scope='col') Activite
+                  th(scope='col') CA
+              tbody#tblSocietesUpdateBody
+            table#tblPersonnesUpdate.table
+              thead
+                tr
+                  th(scope='col') ID-Personne
+                  th(scope='col') Nom
+                  th(scope='col') Prenom
+                  th(scope='col') Poids
+                  th(scope='col') Taille
+                  th(scope='col') Sexe
+                  th(scope='col') ID-Societe
+                  th(scope='col') Modifier
+                  th(scope='col') Supprimer
+              tbody#tblPersonnesBodyUpdate
+        .modal-footer
+          button#cmdNouvellePersonne.btn.btn-outline-success(type='button') Nouvelle Personne
+          button.btn.btn-secondary(type='button', data-dismiss='modal') Fermer
+          button#cmdSocieteMAJ.btn.btn-primary(type='button') MAJ

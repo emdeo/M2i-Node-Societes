@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+  <script src="./javascripts/utilitaire.js"></script>
+  <script src="./javascripts/sources.js"></script>
+
+  <title>Gestion des sociétés</title>
+</head>
+
+<body>
+  <div class="container">
+    <br>
+    <h1>GESTION DES SOCIETES</h1>
+
+    <!-- Tableau de sociétés -->
+    <table class="table" id="tblSocietes">
+      <thead>
+        <tr>
+          <th scope="col">ID_SOCIETE</th>
+          <th scope="col">Nom</th>
+          <th scope="col">Activite</th>
+          <th scope="col">CA</th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+
+      <tbody id="tblSocietesBody">
+      </tbody>
+
+    </table>
+
+    <!-- Bouton collapse nouvelle société -->
+    <p>
+      <button class="btn btn-primary btn-block" type="button" data-toggle="collapse" data-target="#collapseNouveau"
+        aria-expanded="false" aria-controls="collapseExample">
+        Nouveau </button>
+    </p>
+
+    <!-- Collapse nouvelle société -->
+    <div class="collapse" id="collapseNouveau">
+      <div class="card card-body">
+        
+        <form id="frmNouveau">
+
+          <div class="form-group row">
+            <label for="txtIDSociete" class="col-sm-2 col-form-label">ID_SOCIETE</label>
+            <div class="col-sm-10">
+              <input type="number" class="form-control" id="txtIDSociete">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="txtNom" class="col-sm-2 col-form-label">Nom</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="txtNom">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="txtActivite" class="col-sm-2 col-form-label">Activite</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="txtActivite">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="txtCA" class="col-sm-2 col-form-label">CA</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="txtCA"></input>
+            </div>
+          </div>
+
+          <div class="form-group row  justify-content-center">
+            <div class="col-sm-4">
+              <input type="button" class="form-control btn btn-outline-primary" id="cmdAjout" value="Ajouter" />
+            </div>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+
+    <!-- Tableau d'employés -->
+    <table class="table" id="tblEmployes">
+      <thead>
+        <tr>
+          <th scope="col">ID_PERSONNE</th>
+          <th scope="col">Nom</th>
+          <th scope="col">Prenom</th>
+          <th scope="col">Poids</th>
+          <th scope="col">Taille</th>
+          <th scope="col">Sexe</th>
+          <th scope="col">ID_SOCIETE</th>
+        </tr>
+      </thead>
+
+      <tbody id="tblEmployesBody">
+      </tbody>
+
+    </table>
+
+
+    <!-- Modal gestion des employés -->
+    <div class="modal fade" id="UpdateSocieteModal" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-xl modal-dialog-centered " role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle">GESTION DES EMPLOYES</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+
+            <form>
+
+
+              <table class="table" id="tblSocietesUpdate">
+                <thead>
+                  <tr>
+                    <th scope="col">ID-SOCIETE</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Activite</th>
+                    <th scope="col">CA</th>
+                  </tr>
+                </thead>
+
+                <tbody id="tblSocietesUpdateBody">
+                </tbody>
+
+              </table>
+
+
+              <table class="table" id="tblPersonnesUpdate">
+                <thead>
+                  <tr>
+                    <th scope="col">ID-Personne</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Prenom</th>
+                    <th scope="col">Poids</th>
+                    <th scope="col">Taille</th>
+                    <th scope="col">Sexe</th>
+                    <th scope="col">ID-Societe</th>
+                    <th scope="col">Modifier</th>
+                    <th scope="col">Supprimer</th>
+                  </tr>
+                </thead>
+
+                <tbody id="tblPersonnesBodyUpdate">
+                </tbody>
+
+              </table>
+
+
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-success" id="cmdNouvellePersonne">Nouvelle Personne</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+            <button type="button" class="btn btn-primary" id="cmdSocieteMAJ">MAJ</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
